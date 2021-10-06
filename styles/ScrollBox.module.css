@@ -1,0 +1,9 @@
+ .ScrollBox {
+   width: 100%;
+   height: 100%;
+   border: solid black 2px;
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   align-items: center;
+ }

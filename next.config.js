@@ -1,6 +1,9 @@
 module.exports = {
   reactStrictMode: true,
   env: {
-    // API_KEY: 'YOUR_API_KEY',
+    API_KEY: 'your_api_key',
+  },
+  images: {
+    domains: ['images.unsplash.com'],
   },
 }
