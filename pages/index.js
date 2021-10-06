@@ -11,7 +11,16 @@ export default function Home() {
   const [images, setImages] = useState([]);
 
   function getImages(){
-    console.log(process.env.API_KEY)
+    unsplash.search.getPhotos({
+      query: "cat",
+    })
+    .then((res) => {
+      console.log(res.response.results)
+      setImages(res.response.results)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   }
 
   return (
