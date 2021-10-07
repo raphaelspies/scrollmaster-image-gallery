@@ -30,7 +30,6 @@ export default function Home() {
   }
 
   // function handleScroll(event) {
-  //   console.log(`Height: ${event.target.scrollHeight}\n ${event.target.scrollTop}`)
   //     let element = event.target
   //     if (element.scrollHeight - element.scrollTop === element.clientHeight) {
   //       // do something at end of scroll
@@ -38,8 +37,15 @@ export default function Home() {
   //     }
   // }
 
-  const handleScroll = useCallback(() => {
-    console.log("scrolling");
+  const handleScroll = useCallback((event) => {
+    let element = event.target;
+    // console.log(`scrollHeight: ${element.scrollHeight}\n scrollTop: ${element.scrollTop} \n clientHeight: ${element.clientHeight}`)
+    console.log(`scrollTop+clientHeight+1: ${element.scrollTop + element.clientHeight + 1} \n scrollHeight: ${element.scrollHeight}`)
+    // if (element.scrollHeight - element.scrollTop + 10 >= element.clientHeight) {
+    if (element.scrollTop + element.clientHeight + 1 >= element.scrollHeight) {
+      alert("end")
+    }
+
   }, []);
 
   useEffect(() => {
