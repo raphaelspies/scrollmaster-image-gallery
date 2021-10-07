@@ -5,7 +5,7 @@ import styles from '../styles/ScrollBox.module.css'
 
 import ScrollBox from '../components/ScrollBox'
 import Card from '../components/Card'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { createApi } from 'unsplash-js';
 
 const unsplash = createApi({accessKey: process.env.API_KEY});
@@ -29,9 +29,26 @@ export default function Home() {
     })
   }
 
+  // function handleScroll(event) {
+  //   console.log(`Height: ${event.target.scrollHeight}\n ${event.target.scrollTop}`)
+  //     let element = event.target
+  //     if (element.scrollHeight - element.scrollTop === element.clientHeight) {
+  //       // do something at end of scroll
+  //       console.log('end!')
+  //     }
+  // }
+
+  const handleScroll = useCallback(() => {
+    console.log("scrolling");
+  }, []);
+
   useEffect(() => {
     getImages();
   }, [])
+
+  if (!isLoaded) {
+    return (<div>Loading...</div>)
+  }
 
   return (
     <div className={styles.container}>
@@ -45,22 +62,10 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to ScrollMaster!
         </h1>
-      <div className={styles.ScrollBox}>
-      {!isLoaded
-        ? "Loading ..."
-        : images.map((image) => (
-            <Card
-              key={image.id}
-              info={image}
-            />
-        ))
-      }
-    </div>
+
+        <ScrollBox images={images} onScroll={handleScroll}/>
 
       </main>
-
-      <footer className={styles.footer}>
-      </footer>
     </div>
   )
 }

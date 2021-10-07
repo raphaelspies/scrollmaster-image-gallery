@@ -13,7 +13,7 @@ export default function Card (props) {
     <div>
        {/* note: using img ILO Image since Image cannot support dynamic assets */}
       <img
-        src={props.info.urls.thumb}
+        src={props.info.urls.small}
         alt={props.info.alt_description}
         layout="fill"
       />
