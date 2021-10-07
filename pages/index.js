@@ -13,44 +13,41 @@ const unsplash = createApi({accessKey: process.env.API_KEY});
 export default function Home() {
   const [images, setImages] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [pageNo, setPageNo] = useState(1)
+  const [pagesLoaded, setPagesLoaded] = useState(0)
 
   function getImages(){
-    console.log(process.env.API_KEY)
+    console.log(pageNo)
     unsplash.search.getPhotos({
       query: "cat",
+      page: pageNo,
     })
     .then((res) => {
       console.log(res)
-      setImages(res.response.results)
+      setImages(images.concat(res.response.results))
       setIsLoaded(true)
+      setPagesLoaded(pagesLoaded + 1)
     })
     .catch((err) => {
       console.log(err)
     })
   }
 
-  // function handleScroll(event) {
-  //     let element = event.target
-  //     if (element.scrollHeight - element.scrollTop === element.clientHeight) {
-  //       // do something at end of scroll
-  //       console.log('end!')
-  //     }
-  // }
-
   const handleScroll = useCallback((event) => {
     let element = event.target;
-    // console.log(`scrollHeight: ${element.scrollHeight}\n scrollTop: ${element.scrollTop} \n clientHeight: ${element.clientHeight}`)
-    console.log(`scrollTop+clientHeight+1: ${element.scrollTop + element.clientHeight + 1} \n scrollHeight: ${element.scrollHeight}`)
-    // if (element.scrollHeight - element.scrollTop + 10 >= element.clientHeight) {
+    // console.log(`scrollTop+clientHeight+1: ${element.scrollTop + element.clientHeight + 1} \n scrollHeight: ${element.scrollHeight}`)
     if (element.scrollTop + element.clientHeight + 1 >= element.scrollHeight) {
-      alert("end")
+      if (pagesLoaded != pageNo){
+        setPageNo(pageNo + 1)
+        console.log("pagesLoaded, pageNo: ", pagesLoaded, pageNo)
+      }
     }
 
-  }, []);
+  }, [pagesLoaded, pageNo]);
 
   useEffect(() => {
     getImages();
-  }, [])
+  }, [pageNo])
 
   if (!isLoaded) {
     return (<div>Loading...</div>)
