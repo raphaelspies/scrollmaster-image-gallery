@@ -1,0 +1,14 @@
+.Card {
+  padding: 10px;
+}
+
+#module {
+
+}
+
+.Card:hover,
+.Card:focus,
+.Card:active {
+  color: #0070f3;
+  border-color: #0070f3;
+}

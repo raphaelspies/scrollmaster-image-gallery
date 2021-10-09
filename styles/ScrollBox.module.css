@@ -1,19 +1,16 @@
  .ScrollBox {
-   width: 100vw;
-   height: 90vh;
-   border: solid black 2px;
-   /* flex-direction: column;
-   flex-wrap: nowrap;
-   align-items: center; */
+   /* width: 95vw; */
+   /* height: 80vh; */
+   /* border: solid black 2px; */
    overflow-y: scroll;
    overflow-x:hidden;
    position: fixed;
-   bottom: 0;
+   top: 10%;
+   /* bottom: 0; */
  }
 
  .column {
-   background-color: red;
-   display: flex;
+  display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   align-items: center;
@@ -21,13 +18,7 @@
 
  .grid {
   display: flex;
-   background-color: green;
   flex-direction: row;
   flex-wrap: wrap;
  }
 
- .title {
-   display: flex;
-   flex-direction: row;
-   justify-content: space-evenly;
- }

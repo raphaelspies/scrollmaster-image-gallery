@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import styles from '../styles/Card.module.css'
 
 export default function Card (props) {
  const {
@@ -12,12 +13,12 @@ export default function Card (props) {
  } = props
 
   return (
-    <div ref={endOfListRef}>
+    <div ref={endOfListRef} className={styles.Card}>
       <Image
         src={urls.small}
         alt={alt_description}
-        width={width/8}
-        height={height/8}
+        width={600}
+        height={height / (width/600)}
       />
     </div>
   )

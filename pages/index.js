@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 // import styles from '../styles/Home.module.css'
-import styles from '../styles/ScrollBox.module.css'
+import styles from '../styles/Home.module.css'
 
 import ScrollBox from '../components/ScrollBox'
 import Card from '../components/Card'
@@ -50,7 +50,6 @@ export default function Home() {
 
   const changeView = function(e) {
     setView(prevState => (!prevState))
-    console.log(view)
   }
 
   useEffect(() => {
@@ -69,10 +68,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to ScrollMaster!
-          <button onClick={changeView}>Change View</button>
-        </h1>
+        <div className={styles.title}>
+          <h1 className={styles.text}> Welcome to ScrollMaster! </h1>
+          <button className={styles.button} onClick={changeView}>Change View</button>
+        </div>
         <ScrollBox
           images={images}
           endOfListRef={endOfListRef}
