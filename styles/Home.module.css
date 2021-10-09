@@ -4,10 +4,8 @@
   justify-content: space-evenly;
   position: fixed;
   z-index: 2;
-  /* border: 2px solid gray; */
   background-color: white;
   box-shadow: 10px 5px 5px lightgray;
-  /* margin: 10px; */
   padding: 20px;
   width: 100%;
 }
