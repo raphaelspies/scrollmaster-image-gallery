@@ -16,15 +16,14 @@ export default function Home() {
   const [pagesRequested, setPagesRequested] = useState(1);
   const [isUpdating, setIsUpdating] = useState(false);
   const [view, setView] = useState(true);
+  const [query, setQuery] = useState("cats")
 
   function getImages(){
-    console.log(unsplash)
     unsplash.search.getPhotos({
-      query: "flowers",
+      query,
       page: pagesRequested,
     })
     .then((res) => {
-      console.log(res)
       setImages(prevImages => {
         return [...new Set([...prevImages, ...res.response.results])]
       })
@@ -32,16 +31,21 @@ export default function Home() {
       setIsUpdating(false)
     })
     .catch((err) => {
-      console.log(err)
+      console.error(err)
     })
+  }
+
+  const enterQuery = function(e) {
+    setQuery(e.target.value)
+    e.preventDefault()
   }
 
   const observer = useRef();
   const endOfListRef = useCallback(node => {
     if (isUpdating) return
     if (observer.current) observer.current.disconnect()
-    observer.current = new IntersectionObserver(listEntries => {
-      if (listEntries[0].isIntersecting) {
+    observer.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
         setPagesRequested(prevState => (prevState + 1))
       }
     })
@@ -64,12 +68,17 @@ export default function Home() {
     <div className={styles.container}>
       <Head>
         <title>ScrollMaster: The Infinite Scroll Machine</title>
-        <meta name="description" content="now you can scroll images forever!" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta name="ScrollMaster by Raphael Spies" content="now you can scroll images forever!" />
       </Head>
       <main className={styles.main}>
         <div className={styles.title}>
-          <h1 className={styles.text}> Welcome to ScrollMaster! </h1>
+          <p className={styles.text}> Welcome to ScrollMaster! </p>
+          <h3>By <a href="https://github.com/raphaelspies">Raphael Spies</a></h3>
+          <form>
+            <label htmlFor="query">Next, I want to see images of: &nbsp;</label>
+            <input id="query" type="text" onChange={enterQuery} value={query}></input>
+
+          </form>
           <button className={styles.button} onClick={changeView}>Change View</button>
         </div>
         <ScrollBox

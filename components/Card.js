@@ -16,6 +16,7 @@ export default function Card (props) {
   endOfListRef,
   info: {
     urls,
+    description,
     alt_description,
     width,
     height,
@@ -52,7 +53,7 @@ export default function Card (props) {
             height={height / (width/600)}
           />
           <div className={styles.modalText}>
-            <h2>{alt_description}</h2>
+            <h2>{description? description: alt_description}</h2>
             <ul>
               <li><b> Author: </b> {name}</li>
               <li><b> Author Bio: </b> {bio}</li>
@@ -62,6 +63,5 @@ export default function Card (props) {
         </div>
         </div>
       </div>)
-
   )
 }

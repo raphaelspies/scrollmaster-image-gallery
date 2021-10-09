@@ -1,13 +1,11 @@
  .ScrollBox {
-   /* width: 95vw; */
-   /* height: 80vh; */
-   /* border: solid black 2px; */
+   width: 95vw; /* Prevents issues on smaller screens */
+   height: 80vh; /* Prevents issues on smaller screens */
    overflow-y: scroll;
    overflow-x:hidden;
    position: fixed;
    top: 10%;
    z-index: 1;
-   /* bottom: 0; */
  }
 
  .column {
@@ -36,26 +34,10 @@
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-/* Modal Content/Box */
-.nmodalContent {
+.modalContent {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 80%;
 }
-
-/* The Close Button */
-/* .closeModal {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer; */
-/* } */
