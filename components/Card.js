@@ -3,33 +3,32 @@ import Image from 'next/image'
 import styles from '../styles/Card.module.css'
 import { DateTime } from 'luxon';
 
-
 export default function Card (props) {
- const [isModal, setIsModal] = useState(false)
+  const [isModal, setIsModal] = useState(false)
 
- const openModal = function(e) {
-  setIsModal(prevState => (!prevState))
-}
-
-
- const {
-  endOfListRef,
-  info: {
-    urls,
-    description,
-    alt_description,
-    width,
-    height,
-    created_at,
-    user: {
-      name,
-      bio,
-      links: {
-        portfolio,
+  const {
+    endOfListRef,
+    info: {
+      urls,
+      description,
+      alt_description,
+      width,
+      height,
+      created_at,
+      user: {
+        name,
+        bio,
+        links: {
+          portfolio,
+        }
       }
-    }
-  },
- } = props
+    },
+  } = props
+
+
+  const openModal = function(e) {
+    setIsModal(prevState => (!prevState))
+  }
 
  const CreationDate = DateTime.fromISO(created_at).toLocaleString();
   return (
