@@ -11,22 +11,33 @@ import { createApi } from 'unsplash-js';
 const unsplash = createApi({accessKey: process.env.API_KEY});
 
 export default function Home() {
+  //tracks whether reload after initial API request is complete
+  const [initialLoad, setInitialLoad] = useState(false);
+  //
   const [images, setImages] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [pageNo, setPageNo] = useState(1)
-  const [pagesLoaded, setPagesLoaded] = useState(0)
+  const [pagesRequested, setPagesRequested] = useState(1);
+
+  const [pagesLoaded, setPagesLoaded] = useState(0);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   function getImages(){
-    console.log(pageNo)
+    console.log("pagesLoaded, pagesRequested: ", pagesLoaded, pagesRequested)
+    console.log(unsplash)
     unsplash.search.getPhotos({
-      query: "cat",
-      page: pageNo,
+      query: "flowers",
+      page: pagesRequested,
     })
     .then((res) => {
       console.log(res)
-      setImages(images.concat(res.response.results))
-      setIsLoaded(true)
-      setPagesLoaded(pagesLoaded + 1)
+      // setImages(images.concat(res.response.results))
+      setImages(prevImages => {
+        return [...new Set([...prevImages, res.response.results[0]])]
+      })
+      setInitialLoad(true)
+      setPagesLoaded(prevState => (prevState + 1))
+      setIsUpdating(false)
+      console.log("pagesLoaded, pagesRequested: ", pagesLoaded, pagesRequested)
+
     })
     .catch((err) => {
       console.log(err)
@@ -36,20 +47,18 @@ export default function Home() {
   const handleScroll = useCallback((event) => {
     let element = event.target;
     // console.log(`scrollTop+clientHeight+1: ${element.scrollTop + element.clientHeight + 1} \n scrollHeight: ${element.scrollHeight}`)
-    if (element.scrollTop + element.clientHeight + 1 >= element.scrollHeight) {
-      if (pagesLoaded != pageNo){
-        setPageNo(pageNo + 1)
-        console.log("pagesLoaded, pageNo: ", pagesLoaded, pageNo)
-      }
+    if (Math.floor(element.scrollTop + element.clientHeight + 1) === element.scrollHeight && !isUpdating) {
+      // setPagesRequested(prevState => (prevState + 1))
+        setIsUpdating(true)
     }
 
-  }, [pagesLoaded, pageNo]);
+  }, [pagesLoaded, pagesRequested]);
 
   useEffect(() => {
     getImages();
-  }, [pageNo])
+  }, [pagesRequested])
 
-  if (!isLoaded) {
+  if (!initialLoad) {
     return (<div>Loading...</div>)
   }
 
