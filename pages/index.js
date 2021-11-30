@@ -7,7 +7,8 @@ import Card from '../components/Card'
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { createApi } from 'unsplash-js';
 
-const unsplash = createApi({accessKey: process.env.API_KEY});
+// const unsplash = createApi({accessKey: process.env.API_KEY});
+const unsplash = createApi({accessKey: process.env.NEXT_PUBLIC_API_KEY});
 
 export default function Home() {
   const [initialLoad, setInitialLoad] = useState(false);
